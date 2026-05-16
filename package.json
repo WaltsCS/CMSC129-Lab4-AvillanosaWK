@@ -1,0 +1,25 @@
+{
+  "name": "cmsc129-lab4-avillanosawk",
+  "version": "1.0.0",
+  "description": "A simple single-resource CRUD web application for managing academic tasks. The app allows a student to create tasks, view the current task list, update existing tasks, and delete tasks that are no longer needed. This project is developed using Test-Driven Development (TDD), following the Red-Green-Refactor cycle across unit, integration, and system testing levels.",
+  "main": "index.js",
+  "scripts": {
+    "test:unit": "jest tests/unit",
+    "test": "npm run test:unit"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/WaltsCS/CMSC129-Lab4-AvillanosaWK.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/WaltsCS/CMSC129-Lab4-AvillanosaWK/issues"
+  },
+  "homepage": "https://github.com/WaltsCS/CMSC129-Lab4-AvillanosaWK#readme",
+  "devDependencies": {
+    "jest": "^30.4.2"
+  }
+}
