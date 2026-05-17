@@ -155,7 +155,8 @@ Screenshots will be added as each testing part is completed.
 
 #### Unit Test Results
 
-To be added after Part 1.
+The unit tests for task validation passed after the GREEN and REFACTOR phases.
+![Passing unit test results](docs/screenshots/unit-test-results.png)
 
 #### Integration Test Results
 
