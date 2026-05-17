@@ -1,11 +1,19 @@
 // backend/taskValidation.js
 
+function isMissingTitle(input) {
+  return !input || typeof input.title === "undefined" || input.title === "";
+}
+
+function isNonStringTitle(input) {
+  return typeof input.title !== "string";
+}
+
 function validateTaskInput(input) {
   const errors = [];
 
-  if (!input || typeof input.title === "undefined" || input.title === "") {
+  if (isMissingTitle(input)) {
     errors.push("Title is required");
-  } else if (typeof input.title !== "string") {
+  } else if (isNonStringTitle(input)) {
     errors.push("Title must be a string");
   }
 
