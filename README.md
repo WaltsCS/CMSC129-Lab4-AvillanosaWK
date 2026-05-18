@@ -4,7 +4,9 @@ A simple single-resource CRUD web application for managing academic tasks. The a
 
 ## Live URL
 
-To be added after deployment.
+https://cmsc-129-lab4-avillanosa-wk.vercel.app
+
+The deployed Vercel demo uses browser localStorage for task storage. The repository still includes the Express backend used for the integration testing portion of the TDD workflow.
 
 ## User Stories
 
