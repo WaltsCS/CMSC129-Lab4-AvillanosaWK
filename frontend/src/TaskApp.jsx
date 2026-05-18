@@ -1,4 +1,11 @@
+// frontend/src/TaskApp.jsx
+
 import { useRef, useState } from "react";
+import {
+  createTask,
+  updateTask,
+  deleteTask,
+} from "./tasksApi";
 
 export default function TaskApp() {
   const [title, setTitle] = useState("");
@@ -7,23 +14,7 @@ export default function TaskApp() {
   const [editingTitle, setEditingTitle] = useState("");
   const nextUiId = useRef(1);
 
-  async function addTask() {
-    const trimmedTitle = title.trim();
-
-    if (!trimmedTitle) {
-      return;
-    }
-
-    const response = await fetch("/tasks", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ title: trimmedTitle }),
-    });
-
-    const createdTask = await response.json();
-
+  function createUiTask(createdTask) {
     const task = {
       id: nextUiId.current,
       backendId: createdTask.id,
@@ -32,6 +23,19 @@ export default function TaskApp() {
     };
 
     nextUiId.current += 1;
+    return task;
+  }
+
+  async function addTask() {
+    const trimmedTitle = title.trim();
+
+    if (!trimmedTitle) {
+      return;
+    }
+
+    const createdTask = await createTask(trimmedTitle);
+    const task = createUiTask(createdTask);
+
     setTasks((currentTasks) => [...currentTasks, task]);
     setTitle("");
   }
@@ -48,13 +52,7 @@ export default function TaskApp() {
       return;
     }
 
-    await fetch(`/tasks/${task.backendId}`, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ title: trimmedTitle }),
-    });
+    await updateTask(task.backendId, trimmedTitle);
 
     setTasks((currentTasks) =>
       currentTasks.map((item) =>
@@ -67,9 +65,7 @@ export default function TaskApp() {
   }
 
   async function removeTask(task) {
-    await fetch(`/tasks/${task.backendId}`, {
-      method: "DELETE",
-    });
+    await deleteTask(task.backendId);
 
     setTasks((currentTasks) =>
       currentTasks.filter((item) => item.id !== task.id),
