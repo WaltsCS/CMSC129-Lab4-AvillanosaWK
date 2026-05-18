@@ -160,7 +160,8 @@ The unit tests for task validation passed after the GREEN and REFACTOR phases.
 
 #### Integration Test Results
 
-To be added after Part 2.
+The integration tests for the Task API passed after the GREEN and REFACTOR phases.
+![Passing integration test results](docs/screenshots/integration-test-results.png)
 
 #### System Test Results
 
