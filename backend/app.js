@@ -8,6 +8,10 @@ const app = express();
 
 app.use(express.json());
 
+app.get("/", (req, res) => {
+  res.send("<h1>Task Manager placeholder</h1>");
+});
+
 app.post("/tasks", (req, res) => {
   const validation = validateTaskInput(req.body);
 
