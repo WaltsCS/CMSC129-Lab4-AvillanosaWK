@@ -2,13 +2,11 @@
 
 const express = require("express");
 const { validateTaskInput } = require("./taskValidation");
+const { createTask, getTasks } = require("./taskStore");
 
 const app = express();
 
 app.use(express.json());
-
-const tasks = [];
-let nextId = 1;
 
 app.post("/tasks", (req, res) => {
   const validation = validateTaskInput(req.body);
@@ -19,20 +17,14 @@ app.post("/tasks", (req, res) => {
     });
   }
 
-  const task = {
-    id: nextId,
-    title: req.body.title,
-    completed: false,
-  };
 
-  nextId += 1;
-  tasks.push(task);
+  const task = createTask(req.body.title);
 
   return res.status(201).json(task);
 });
 
 app.get("/tasks", (req, res) => {
-  return res.status(200).json(tasks);
+  return res.status(200).json(getTasks());
 });
 
 module.exports = app;
