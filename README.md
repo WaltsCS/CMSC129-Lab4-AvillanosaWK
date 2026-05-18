@@ -151,39 +151,76 @@ npm test
 
 ### Test Results
 
-Screenshots will be added as each testing part is completed.
-
 #### Unit Test Results
 
 The unit tests for task validation passed after the GREEN and REFACTOR phases.
+
 ![Passing unit test results](docs/screenshots/unit-test-results.png)
 
 #### Integration Test Results
 
 The integration tests for the Task API passed after the GREEN and REFACTOR phases.
+
 ![Passing integration test results](docs/screenshots/integration-test-results.png)
 
 #### System Test Results
 
-To be added after Part 3.
+The system tests for the three user stories passed after the GREEN and REFACTOR phases.
+
+![Passing system test results](docs/screenshots/system-test-results.png)
 
 #### Full Test Suite Results
 
-To be added after final testing.
+
+The full test suite passed after completing the unit, integration, and system testing phases.
+
+![Passing integration test results](docs/screenshots/full-test-suite-results.png)
 
 ## CI/CD Setup
 
-To be added after GitHub Actions is configured.
+This project uses GitHub Actions for continuous integration. The workflow is defined in `.github/workflows/ci.yml`.
 
-Planned CI/CD tool:
+The workflow is triggered automatically on:
 
-- GitHub Actions
+- Every push to the `main` branch
+- Every pull request targeting the `main` branch
 
-Planned trigger:
+The CI pipeline performs the following steps:
 
-- Run tests automatically on every push to the `main` branch.
+1. Checks out the repository.
+2. Sets up Node.js version 22.
+3. Installs dependencies using `npm ci`.
+4. Installs the Playwright Chromium browser using `npx playwright install --with-deps chromium`.
+5. Runs the full test suite using `npm test`.
+
+The full test suite includes:
+
+- Unit tests with Jest
+- Integration tests with Jest and Supertest
+- System tests with Playwright
+
+The Red-Green-Refactor process was verified through GitHub Actions:
+
+- `[RED]` commits showed failing workflow runs because the expected implementation did not exist yet.
+- `[GREEN]` commits showed passing workflow runs after the minimum implementation was added.
+- `[REFACTOR]` commits showed passing workflow runs after code cleanup confirmed that behavior did not change.
+
+
 
 ## Reflection
 
-To be added in the final documentation commit.
+Resisting the temptation to develop the functionality first was the hardest aspect of creating tests before code. 
+<br>In earlier exercises, it was simpler to create the function, route, or user interface right away and then see if it worked. 
+<br>We had to specify the intended behavior in this lab before we could write the real implementation. 
+<br>The failed tests had to have meaning, which made this difficult. 
+<br>A Red phase failure should result from behavior that does not yet exist rather than from a syntax error or missing setup. 
+<br>The setup and commit order become more critical than normal as a result.
+
+The way I designed the code changed by writing tests first, unlike the way I usually did before, one without using this kind of development. 
+<br>The task validation logic needed to be isolated from the route handlers in order to be tested separately for the unit tests. 
+<br>Supertest was able to test the API more easily because 
+the Express app needed to be exportable for the integration tests without launching a server right away. 
+<br>To enable Playwright to replicate actual user activities, the user interface for the system tests has to have predictable behavior and clear `data-testid` properties.
+
+So, with all things considered, TDD promoted more structured project structures, simpler functionalities, and a clearer division between levels.
 
