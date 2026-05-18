@@ -7,7 +7,9 @@
     "test:unit": "jest tests/unit",
     "test:integration": "jest tests/integration",
     "test:system": "playwright test",
-    "test": "npm run test:unit && npm run test:integration && npm run test:system"
+    "test": "npm run test:unit && npm run test:integration && npm run test:system",
+    "build": "vite build",
+    "start": "node backend/server.js"
   },
   "repository": {
     "type": "git",

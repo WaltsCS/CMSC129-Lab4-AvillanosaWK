@@ -1,6 +1,7 @@
 // backend/app.js
 
 const express = require("express");
+const path = require("path");
 const { validateTaskInput } = require("./taskValidation");
 const {
   createTask,
@@ -13,8 +14,12 @@ const app = express();
 
 app.use(express.json());
 
+const frontendDistPath = path.join(__dirname, "..", "frontend", "dist");
+
+app.use(express.static(frontendDistPath));
+
 app.get("/", (req, res) => {
-  res.send("<h1>Task Manager placeholder</h1>");
+  res.sendFile(path.join(frontendDistPath, "index.html"));
 });
 
 app.post("/tasks", (req, res) => {
