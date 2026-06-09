@@ -24,6 +24,10 @@ function getNextId(tasks) {
   return Math.max(...tasks.map((task) => task.id)) + 1;
 }
 
+export async function getTasks() {
+  return readTasks();
+}
+
 export async function createTask(title) {
   const tasks = readTasks();
 

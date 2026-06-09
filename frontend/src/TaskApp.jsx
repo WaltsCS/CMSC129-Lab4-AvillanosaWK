@@ -1,7 +1,8 @@
 // frontend/src/TaskApp.jsx
 
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
+  getTasks,
   createTask,
   updateTask,
   deleteTask,
@@ -25,6 +26,24 @@ export default function TaskApp() {
     nextUiId.current += 1;
     return task;
   }
+
+  useEffect(() => {
+    async function loadTasks() {
+      const savedTasks = await getTasks();
+
+      const uiTasks = savedTasks.map((task, index) => ({
+        id: index + 1,
+        backendId: task.id,
+        title: task.title,
+        completed: task.completed,
+      }));
+
+      nextUiId.current = uiTasks.length + 1;
+      setTasks(uiTasks);
+    }
+
+    loadTasks();
+  }, []);
 
   async function addTask() {
     const trimmedTitle = title.trim();
